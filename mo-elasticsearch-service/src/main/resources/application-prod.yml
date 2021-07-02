@@ -1,0 +1,14 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: mo-elasticsearch-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 39.108.182.26:8848,39.108.182.26:8849,39.108.182.26:8850
+elasticsearch:
+  cluster_host: 39.108.182.26
+  esNode1_port: 9200
+  esNode2_port: 9201
+  esNode3_port: 9202
