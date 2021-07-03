@@ -12,6 +12,19 @@
     <artifactId>mo-common</artifactId>
 
     <dependencies>
+        <!-- Elasticsearch高阶客户端-->
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+        </dependency>
         <!-- Nacos配置中心-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

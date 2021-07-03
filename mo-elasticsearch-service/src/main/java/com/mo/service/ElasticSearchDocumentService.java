@@ -5,6 +5,8 @@ import com.mo.model.ResponseData;
 import com.mo.request.CommonRequest;
 import org.elasticsearch.action.search.SearchResponse;
 
+import java.io.IOException;
+
 /**
  * Created by mo on 2021/7/2
  */
@@ -16,5 +18,5 @@ public interface ElasticSearchDocumentService {
      * @param request
      * @return
      */
-    ResponseData matchQuery(CommonRequest request);
+    ResponseData matchQuery(CommonRequest request) throws IOException;
 }

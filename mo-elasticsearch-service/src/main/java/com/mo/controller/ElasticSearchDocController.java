@@ -5,6 +5,7 @@ import com.mo.request.CommonRequest;
 import com.mo.service.ElasticSearchDocumentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.elasticsearch.action.search.SearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ public class ElasticSearchDocController {
      */
     @ApiOperation("全文检索")
     @GetMapping("/matchQuery")
-    public ResponseData matchQuery(@RequestBody CommonRequest request) {
+    public ResponseData matchQuery(@ApiParam("全文检索请求对象")@RequestBody CommonRequest request) {
 
         return elasticSearchDocumentService.matchQuery(request);
 
