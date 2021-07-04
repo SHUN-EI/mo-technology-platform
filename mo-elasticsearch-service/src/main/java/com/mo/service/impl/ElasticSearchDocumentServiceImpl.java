@@ -1,5 +1,6 @@
 package com.mo.service.impl;
 
+import com.mo.enums.ResultEnum;
 import com.mo.model.CommonEntity;
 import com.mo.model.ResponseData;
 import com.mo.request.CommonRequest;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -34,10 +36,10 @@ public class ElasticSearchDocumentServiceImpl implements ElasticSearchDocumentSe
      * @return
      */
     @Override
-    public ResponseData matchQuery(CommonRequest request) throws IOException {
+    public ResponseData matchQuery(CommonRequest request) {
 
         //构建查询响应
-        SearchResponse response = null;
+        SearchResponse result = null;
         //构建查询请求
         SearchRequest searchRequest = new SearchRequest(request.getIndexName());
         //构建DSL请求体
@@ -56,12 +58,27 @@ public class ElasticSearchDocumentServiceImpl implements ElasticSearchDocumentSe
         builder.size(pageSize);//每页数量
         //将查询条件放到请求对象中
         searchRequest.source(builder);
-        //执行远程查询
-        response = client.search(searchRequest, RequestOptions.DEFAULT);
-        //处理高亮
-        SearchUtil.setHighResultForCleintUI(response, request.getHighlight());
 
-        return null;
+        try {
+            //执行远程查询
+            //调用全文检索方法
+            result = client.search(searchRequest, RequestOptions.DEFAULT);
+            //获取数据个数
+            long size = result.getHits().getTotalHits().value;
+            //处理高亮
+            SearchUtil.setHighResultForCleintUI(result, request.getHighlight());
+
+            Map<String, Object> pageMap = new HashMap<>();
+            //总条数
+            pageMap.put("total_record", size);
+            pageMap.put("current_data", result);
+
+            return ResponseData.buildSuccess(pageMap, ResultEnum.SUCCESS);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseData.buildResult(ResultEnum.ERROR);
+        }
     }
 
     /**
@@ -72,7 +89,7 @@ public class ElasticSearchDocumentServiceImpl implements ElasticSearchDocumentSe
      */
     private void getClientConditions(CommonRequest request, SearchSourceBuilder builder) {
 
-        Map<String, Object> requestMap = request.getMap();
+        Map<String, Object> requestMap = request.getRequestMap();
         if (requestMap != null) {
             requestMap.forEach((k, v) ->
                     //查询请求体query

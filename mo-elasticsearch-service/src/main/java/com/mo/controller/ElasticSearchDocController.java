@@ -8,10 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.elasticsearch.action.search.SearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -32,10 +29,9 @@ public class ElasticSearchDocController {
      * @return
      */
     @ApiOperation("全文检索")
-    @GetMapping("/matchQuery")
-    public ResponseData matchQuery(@ApiParam("全文检索请求对象")@RequestBody CommonRequest request) throws IOException {
+    @PostMapping("/matchQuery")
+    public ResponseData matchQuery(@ApiParam("全文检索请求对象") @RequestBody CommonRequest request) {
 
         return elasticSearchDocumentService.matchQuery(request);
-
     }
 }

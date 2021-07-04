@@ -18,5 +18,5 @@ public interface ElasticSearchDocumentService {
      * @param request
      * @return
      */
-    ResponseData matchQuery(CommonRequest request) throws IOException;
+    ResponseData matchQuery(CommonRequest request);
 }

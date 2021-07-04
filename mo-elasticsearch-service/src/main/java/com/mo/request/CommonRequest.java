@@ -52,7 +52,8 @@ public class CommonRequest {
     private Integer suggestCount;
 
     @ApiModelProperty(value = "动态查询参数封装")
-    private Map<String, Object> map;
+    @JsonProperty("request_map")
+    private Map<String, Object> requestMap;
 
     @ApiModelProperty(value = "批量增加list")
     private List<Map<String, Object>> list;
