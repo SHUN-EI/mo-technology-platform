@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 /**
  * Created by mo on 2021/7/2
  */
@@ -31,7 +33,7 @@ public class ElasticSearchDocController {
      */
     @ApiOperation("全文检索")
     @GetMapping("/matchQuery")
-    public ResponseData matchQuery(@ApiParam("全文检索请求对象")@RequestBody CommonRequest request) {
+    public ResponseData matchQuery(@ApiParam("全文检索请求对象")@RequestBody CommonRequest request) throws IOException {
 
         return elasticSearchDocumentService.matchQuery(request);
 
