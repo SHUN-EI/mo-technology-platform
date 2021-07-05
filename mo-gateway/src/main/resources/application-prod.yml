@@ -1,0 +1,22 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: mo-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 39.108.182.26:8848,39.108.182.26:8849,39.108.182.26:8850
+    gateway:  #gateway 网关配置
+      #开启网关拉取nacos的服务
+      discovery:
+        locator:
+          enabled: true #是否根据微服务的名称进行映射设置
+      routes: #路由配置，数组形式
+        - id: elasticsearch-service  #商品服务 路由唯一标识
+          uri: lb://mo-elasticsearch-service  #从nacos进行转发
+          order: 1 #优先级，数字越小优先级越高
+          predicates: #断言 配置哪个路径才转发，前端访问路径统一加上XXX-server，网关判断转发对应的服务，如果是回调业务记得修改
+            - Path=/elasticsearch-server/**
+          filters: #过滤器，请求在传递过程中通过过滤器修改
+            - StripPrefix=1  #去掉第一层前缀，转发给后续的路径
