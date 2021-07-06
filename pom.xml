@@ -12,7 +12,7 @@
         <module>mo-common</module>
         <module>mo-analysis-service</module>
         <module>mo-elasticsearch-service</module>
-        <module>mo-gateway</module>
+        <module>mo-gateway-platform</module>
         <module>mo-sleuth-service</module>
     </modules>
 

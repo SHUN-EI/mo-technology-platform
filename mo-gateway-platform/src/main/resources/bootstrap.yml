@@ -1,6 +1,6 @@
 spring:
   application:
-    name: mo-gateway
+    name: mo-gateway-platform
   cloud:
     nacos:
       config:

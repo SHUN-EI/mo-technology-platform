@@ -2,7 +2,7 @@ server:
   port: 9000
 spring:
   application:
-    name: mo-gateway
+    name: mo-gateway-platform
   cloud:
     nacos:
       discovery:
@@ -20,3 +20,10 @@ spring:
             - Path=/elasticsearch-server/**
           filters: #过滤器，请求在传递过程中通过过滤器修改
             - StripPrefix=1  #去掉第一层前缀，转发给后续的路径
+
+#设置日志级别,ERROR/WARN/INFO/DEBUG,默认是INFO以上才显示
+logging:
+  level:
+    root: INFO
+    #nacos日志问题
+    com.alibaba.nacos.client.config.impl: WARN
